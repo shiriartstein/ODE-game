@@ -12,7 +12,7 @@ function shuffle(array) {
 }
 
 function equationHTML(text) {
-  return `<div class="equation-face">${text}</div>`;
+  return `<div class="equation-face"><div class="math-inner">${text}</div></div>`;
 }
 
 function svgArrow(x, yStart, direction, length) {
@@ -172,33 +172,33 @@ const pairs = [
 
 {
   pairId: "saddle-2d",
-  equation: "\\( \\dot{x}=x,\\; \\dot{y}=-y \\)",
+  equation: "\\( \\begin{aligned}\\dot{x}&=x \\\\ \\dot{y}&=-y \\end{aligned}\\)",
   image: "portraits/saddle.png"
 },
 {
   pairId: "stable-node-2d",
-  equation: "\\( \\dot{x}=-x,\\; \\dot{y}=-2y \\)",
+  equation: "\\( \\begin{aligned} \\dot{x}&=x \\\\ \\dot{y}&=-2y \\end{aligned} \\)",
   image: "portraits/stable-node.png"
 },
 {
   pairId: "unstable-node-2d",
-  equation: "\\( \\dot{x}=x,\\; \\dot{y}=2y \\)",
+  equation: "\\( \\begin{aligned}\\dot{x}&=x \\\\ \\dot{y}&=2y \\end{aligned}\\)",
   image: "portraits/unstable-node.png"
 },{
   pairId: "pendulum",
-  equation: "\\( \\dot{x}=y,\\; \\dot{y}=-\\sin x \\)",
+  equation: "\\( \\begin{aligned}\\dot{x}&=y\\\\ \\dot{y}&=-\\sin x \\end{aligned}\\)",
   image: "portraits/pendulum-stream.png"
 },
 {
   pairId: "spiral-2d",
-  equation: "\\( \\dot{x}=y,\\; \\dot{y}=-x-0.5y \\)",
+  equation: "\\( \\begin{aligned} \\dot{x}&=y \\\\ \\dot{y}&=-x-0.5y \\end{aligned} \\)",
   image: "portraits/damped-oscillator-k-0-5.png"
 },
 
 
 {
   pairId: "center-2d",
-  equation: "\\( \\dot{x}=y,\\; \\dot{y}=-x \\)",
+  equation: "\\( \\begin{aligned}\\dot{x}&=y \\\\ \\dot{y}&=-x \\end{aligned}\\)",
   image: "portraits/center.png"
 },
 {
