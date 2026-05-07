@@ -400,6 +400,7 @@ let deck = [];
 let flippedIndices = [];
 let lockBoard = false;
 let matches = 0;
+let pendingMismatch = null;
 
 function updateStatus() {
   statusEl.textContent =
@@ -436,6 +437,18 @@ if (window.MathJax) {
 }
 
 function handleClick(i) {
+  // close previous wrong pair on next click
+  if (pendingMismatch) {
+    const [m1, m2] = pendingMismatch;
+
+    deck[m1].flipped = false;
+    deck[m2].flipped = false;
+
+    pendingMismatch = null;
+    renderBoard();
+  }
+
+
   if (lockBoard) return;
 
   const card = deck[i];
@@ -465,13 +478,9 @@ function handleClick(i) {
     return;
   }
 
-  setTimeout(() => {
-    c1.flipped = false;
-    c2.flipped = false;
-    flippedIndices = [];
-    lockBoard = false;
-    renderBoard();
-  }, 800);
+    pendingMismatch = [a, b];
+  flippedIndices = [];
+  lockBoard = false;
 }
 
 function resetGame() {
