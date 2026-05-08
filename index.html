@@ -1,16 +1,50 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>ODE Memory Game</title>
+
   <link rel="stylesheet" href="style.css">
+
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-J0QV8V677W"></script>
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+
+
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']]
+      }
+    };
+  </script>
+
+  <script async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
 </head>
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 <body>
+
   <main class="app">
+
     <h1>ODE Memory Game</h1>
-    <p class="subtitle">Match each equation with its phase portrait.</p>
+
+    <p class="subtitle">
+      Match each equation with its phase portrait.
+    </p>
 
     <div class="controls">
       <button id="resetBtn">Shuffle / Restart</button>
@@ -18,8 +52,10 @@
     </div>
 
     <div id="gameBoard" class="board"></div>
+
   </main>
 
   <script src="game.js"></script>
+
 </body>
 </html>
