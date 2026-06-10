@@ -411,7 +411,7 @@ function updateStatus() {
 }
 
 function updateDeckStatus() {
-  if (!board) return
+  if (!board) return;
 
   deck.forEach((card, index) => {
     const cardEl = board.children[index]
@@ -419,7 +419,9 @@ function updateDeckStatus() {
 
     card.flipped ? cardEl.classList.add("is-flipped") : cardEl.classList.remove("is-flipped")
     card.matched ? cardEl.classList.add("is-matched") : cardEl.classList.remove("is-matched")
-  })
+  });
+
+  updateStatus();
 }
 
 function renderBoard() {
