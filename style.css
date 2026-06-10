@@ -36,6 +36,13 @@ h1 {
   flex-wrap: wrap;
 }
 
+.ctrl-btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
 #resetBtn {
   border: 1px solid #222;
   background: white;
@@ -49,17 +56,29 @@ h1 {
   background: #f0f0f0;
 }
 
+#revealBtn {
+  border: 1px solid transparent;
+  background: white;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+#revealBtn:hover {
+  color: green;
+  border-color: green;
+}
+
 #status {
   font-weight: 600;
 }
 
-
-%.board {
+/* %.board {
 %  display: grid;
 %  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
 %  gap: 12px;
-%}
-
+%} */
 
 .board {
   display: grid;
@@ -69,20 +88,23 @@ h1 {
 }
 
 .card {
+  position: relative;
   border: none;
   background: none;
   padding: 0;
   cursor: pointer;
   aspect-ratio: 2.7 / 4;
-  perspective: 1000px;
+  border-radius: 18px;
 }
 
 .card-inner {
   position: relative;
   width: 100%;
   height: 100%;
+  perspective: 1000px;
   transform-style: preserve-3d;
   transition: transform 0.45s ease;
+  border-radius: inherit;
 }
 
 .card.is-flipped .card-inner,
@@ -90,14 +112,34 @@ h1 {
   transform: rotateY(180deg);
 }
 
+@keyframes growAndBack {
+  0% {
+    scale: 1;
+  }
+  50% {
+    scale: 1.04;
+  }
+  100% {
+    scale: 1;
+  }
+}
+
+.card.is-matched {
+  animation: growAndBack 1s ease-in-out forwards;
+}
+
 .card-face {
   position: absolute;
   inset: 0;
   backface-visibility: hidden;
-  border: 2px solid #222;
-  border-radius: 18px;
+  border: 4px solid #eee;
+  border-radius: inherit;
   background: white;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  /* box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08); */
+}
+
+.card:is(.is-matched, .is-flipped) .card-face {
+  border-color: transparent;
 }
 
 .card-back {
@@ -137,15 +179,10 @@ h1 {
   display: block;
 }
 
-.card.is-matched .card-face {
-  box-shadow: 0 0 0 4px rgba(0, 140, 70, 0.15), 0 6px 16px rgba(0, 0, 0, 0.08);
-}
-
 .card:focus-visible {
   outline: 3px solid #4d90fe;
   outline-offset: 4px;
 }
-
 
 @media (max-width: 700px) {
   .app {
@@ -189,7 +226,6 @@ h1 {
   }
 }
 
-
 .equation-face {
   display: flex;
   align-items: center;
@@ -205,14 +241,85 @@ h1 {
   .equation-face {
     font-size: 0.95rem;
   }
-.math-inner {
+  .math-inner {
     transform: scale(0.75);
   }
   .board {
-	grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 8px;
   }
-.card-front {
+  .card-front {
     padding: 6px;
+  }
+}
+
+@property --gradient-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.glow-border {
+  position: relative;
+  --clr-1: #ea7373;
+  --clr-2: #82c6f4;
+  --clr-3: #f2f297;
+}
+
+.glow-border::before,
+.glow-border::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  background: conic-gradient(
+    from var(--gradient-angle),
+    var(--clr-1),
+    var(--clr-2),
+    var(--clr-3),
+    var(--clr-2),
+    var(--clr-1)
+  );
+  border-radius: inherit;
+  animation: rotation 10s linear infinite;
+}
+
+.glow-border::before {
+  opacity: 0;
+  inset: -0.25rem;
+}
+
+.glow-border::after {
+  opacity: 0;
+  transition: opacity 0.5s linear;
+  inset: -0.5rem;
+  filter: blur(3rem);
+}
+
+.glow-border.is-flipped::before {
+  opacity: 1;
+  transition: opacity 0.5s linear;
+  animation-duration: 5s;
+}
+.glow-border.is-matched::before {
+  --clr-1: #00FF00;
+  --clr-2: #32CD32;
+  --clr-3: #9ACD32;
+}
+
+.glow-border:hover::after {
+  opacity: 1;
+}
+
+.glow-border:hover {
+  z-index: 5;
+}
+
+
+@keyframes rotation {
+  0% {
+    --gradient-angle: 0deg;
+  }
+  100% {
+    --gradient-angle: 360deg;
   }
 }
