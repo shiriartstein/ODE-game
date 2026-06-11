@@ -1,6 +1,7 @@
 const board = document.getElementById("gameBoard");
 const statusEl = document.getElementById("status");
 const resetBtn = document.getElementById("resetBtn");
+const revealBtn = document.getElementById("revealBtn");
 
 function shuffle(array) {
   const copy = [...array];
@@ -64,8 +65,7 @@ function svgArrow(x, yStart, direction, length) {
   return line + head;
 }
 
-function portraitCard({ f, equilibria, ticks = [], samples, yMin = -2, yMax = 2 })
- {
+function portraitCard({ f, equilibria, ticks = [], samples, yMin = -2, yMax = 2 }) {
   const width = 180;
   const height = 260;
 
@@ -114,10 +114,10 @@ function portraitCard({ f, equilibria, ticks = [], samples, yMin = -2, yMax = 2 
     `;
   }).join("");
 
-const equilibriumMarks = equilibria.map((eq) => {
-  const py = toPixel(eq.value);
+  const equilibriumMarks = equilibria.map((eq) => {
+    const py = toPixel(eq.value);
 
-  return `
+    return `
     <line
       x1="${lineX - 5}" y1="${py}"
       x2="${lineX + 5}" y2="${py}"
@@ -125,12 +125,12 @@ const equilibriumMarks = equilibria.map((eq) => {
       stroke-width="1.4"
     />
   `;
-}).join("");
+  }).join("");
 
-const tickMarks = ticks.map((t) => {
-  const py = toPixel(t.value);
+  const tickMarks = ticks.map((t) => {
+    const py = toPixel(t.value);
 
-  return `
+    return `
     <line
       x1="${lineX - 5}" y1="${py}"
       x2="${lineX + 5}" y2="${py}"
@@ -138,12 +138,12 @@ const tickMarks = ticks.map((t) => {
       stroke-width="1.2"
     />
   `;
-}).join("");
+  }).join("");
 
-const tickLabels = ticks.map((t) => {
-  const py = toPixel(t.value);
+  const tickLabels = ticks.map((t) => {
+    const py = toPixel(t.value);
 
-  return `
+    return `
     <text
       x="${lineX - 12}"
  	y="${py + 5}" text-anchor="end"
@@ -152,7 +152,7 @@ const tickLabels = ticks.map((t) => {
       fill="#555"
     >${t.label}</text>
   `;
-}).join("");
+  }).join("");
 
   return `
     <div class="portrait-face">
@@ -170,54 +170,54 @@ const tickLabels = ticks.map((t) => {
 
 const pairs = [
 
-{
-  pairId: "saddle-2d",
-  equation: "\\( \\begin{aligned}\\dot{x}&=x \\\\ \\dot{y}&=-y \\end{aligned}\\)",
-  image: "portraits/saddle.png"
-},
-{
-  pairId: "stable-node-2d",
-  equation: "\\( \\begin{aligned} \\dot{x}&=x \\\\ \\dot{y}&=-2y \\end{aligned} \\)",
-  image: "portraits/stable-node.png"
-},
-{
-  pairId: "unstable-node-2d",
-  equation: "\\( \\begin{aligned}\\dot{x}&=x \\\\ \\dot{y}&=2y \\end{aligned}\\)",
-  image: "portraits/unstable-node.png"
-},{
-  pairId: "pendulum",
-  equation: "\\( \\begin{aligned}\\dot{x}&=y\\\\ \\dot{y}&=-\\sin x \\end{aligned}\\)",
-  image: "portraits/pendulum-stream.png"
-},
-{
-  pairId: "spiral-2d",
-  equation: "\\( \\begin{aligned} \\dot{x}&=y \\\\ \\dot{y}&=-x-0.5y \\end{aligned} \\)",
-  image: "portraits/damped-oscillator-k-0-5.png"
-},
+  {
+    pairId: "saddle-2d",
+    equation: "\\( \\begin{aligned}\\dot{x}&=x \\\\ \\dot{y}&=-y \\end{aligned}\\)",
+    image: "portraits/saddle.png"
+  },
+  {
+    pairId: "stable-node-2d",
+    equation: "\\( \\begin{aligned} \\dot{x}&=x \\\\ \\dot{y}&=-2y \\end{aligned} \\)",
+    image: "portraits/stable-node.png"
+  },
+  {
+    pairId: "unstable-node-2d",
+    equation: "\\( \\begin{aligned}\\dot{x}&=x \\\\ \\dot{y}&=2y \\end{aligned}\\)",
+    image: "portraits/unstable-node.png"
+  }, {
+    pairId: "pendulum",
+    equation: "\\( \\begin{aligned}\\dot{x}&=y\\\\ \\dot{y}&=-\\sin x \\end{aligned}\\)",
+    image: "portraits/pendulum-stream.png"
+  },
+  {
+    pairId: "spiral-2d",
+    equation: "\\( \\begin{aligned} \\dot{x}&=y \\\\ \\dot{y}&=-x-0.5y \\end{aligned} \\)",
+    image: "portraits/damped-oscillator-k-0-5.png"
+  },
 
 
-{
-  pairId: "center-2d",
-  equation: "\\( \\begin{aligned}\\dot{x}&=y \\\\ \\dot{y}&=-x \\end{aligned}\\)",
-  image: "portraits/center.png"
-},
-{
-  pairId: "y2",
-  equation: "\\(y'  = y^2\\)",
-  portrait: portraitCard({
-    f: (y) => y * y,
-    equilibria: [
-      { value: 0, label: "0" }
-    ],
-ticks: [
-    { value: 1, label: "1" }
-  ],
-    samples: [
-      -1.7, -1.2, -0.8, -0.4,
-       0.4, 0.8, 1.2, 1.7
-    ]
-  })
-},
+  {
+    pairId: "center-2d",
+    equation: "\\( \\begin{aligned}\\dot{x}&=y \\\\ \\dot{y}&=-x \\end{aligned}\\)",
+    image: "portraits/center.png"
+  },
+  {
+    pairId: "y2",
+    equation: "\\(y'  = y^2\\)",
+    portrait: portraitCard({
+      f: (y) => y * y,
+      equilibria: [
+        { value: 0, label: "0" }
+      ],
+      ticks: [
+        { value: 1, label: "1" }
+      ],
+      samples: [
+        -1.7, -1.2, -0.8, -0.4,
+        0.4, 0.8, 1.2, 1.7
+      ]
+    })
+  },
   {
     pairId: "logistic",
     equation: "\\( y'  = y(1 − y)\\)",
@@ -227,113 +227,113 @@ ticks: [
         { value: 1, label: "1" },
         { value: 0, label: "0" }
       ],
-ticks: [
-  ],
+      ticks: [
+      ],
       samples: [
-  -0.2, -0.5, -0.8, -1.2, -1.7,
-   0.15, 0.35, 0.5, 0.65, 0.85,
-   1.2, 1.7
-]
+        -0.2, -0.5, -0.8, -1.2, -1.7,
+        0.15, 0.35, 0.5, 0.65, 0.85,
+        1.2, 1.7
+      ]
     })
-  },{
-  pairId: "minus-fifth",
-  equation: "\\( y' = y(1 - y) - \\frac{1}{5} \\)",
-  portrait: portraitCard({
-    f: (y) => y * (1 - y) - 0.2,
-    equilibria: [
-      { value: 0.724, label: "0.72" },
-      { value: 0.276, label: "0.28" }
-    ],
-    ticks: [
-      { value: 0, label: "0" },
-      { value: 1, label: "1" }
-    ],
-    samples: [
-      -1.8, -1.3, -0.9, -0.5,
-       0.1, 0.25, 0.4, 0.6, 0.75, 0.9,
-       1.3, 1.8
-    ]
-  })
-},
+  }, {
+    pairId: "minus-fifth",
+    equation: "\\( y' = y(1 - y) - \\frac{1}{5} \\)",
+    portrait: portraitCard({
+      f: (y) => y * (1 - y) - 0.2,
+      equilibria: [
+        { value: 0.724, label: "0.72" },
+        { value: 0.276, label: "0.28" }
+      ],
+      ticks: [
+        { value: 0, label: "0" },
+        { value: 1, label: "1" }
+      ],
+      samples: [
+        -1.8, -1.3, -0.9, -0.5,
+        0.1, 0.25, 0.4, 0.6, 0.75, 0.9,
+        1.3, 1.8
+      ]
+    })
+  },
 
-{
-  pairId: "cubic",
-  equation: "\\(y' = y(1 − y^2)\\)",
-  portrait: portraitCard({
-    f: (y) => y * (1 - y * y),
-    equilibria: [
-      { value: 1, label: "1" },
-      { value: 0, label: "0" },
-      { value: -1, label: "-1" }
-    ],
-    ticks: [
-    ],
-    samples: [
-      -1.8, -1.3, -0.8, -0.3,
-       0.3, 0.8, 1.3, 1.8
-    ]
-  })
-},
+  {
+    pairId: "cubic",
+    equation: "\\(y' = y(1 − y^2)\\)",
+    portrait: portraitCard({
+      f: (y) => y * (1 - y * y),
+      equilibria: [
+        { value: 1, label: "1" },
+        { value: 0, label: "0" },
+        { value: -1, label: "-1" }
+      ],
+      ticks: [
+      ],
+      samples: [
+        -1.8, -1.3, -0.8, -0.3,
+        0.3, 0.8, 1.3, 1.8
+      ]
+    })
+  },
 
 
 
-{
-  pairId: "y(2-y)",
-equation: "\\( y'  = y(2 - y) \\)",  
-  portrait: portraitCard({
-    f: (y) => y * (2 - y),
-    yMin: -2.2,
-    yMax: 2.4,
-    equilibria: [
-      { value: 2, label: "2" },
-      { value: 0, label: "0" }
-    ],
-ticks: [
-    { value: 1, label: "1" }
-  ],
-    samples: [
-      -0.3, -0.7, -1.2, -1.8,
-       0.2, 0.6, 1.0, 1.4, 1.8,
-       2.3
-    ]
-  })
-},
-{
-  pairId: "minus-quarter",
-equation: "\\( y'  = y(1 - y) - \\frac{1}{4} \\)",  
-  portrait: portraitCard({
-    f: (y) => y * (1 - y) - 0.25,
-    equilibria: [
-     { value: 0.5, label: "½" }
-    ],
-ticks: [
-    { value: 0, label: "0" },
-    { value: 1, label: "1" }
-  ],
-    samples: [
-      -1.8, -1.3, -0.9, -0.5,
-       0.1, 0.3, 0.7, 0.9,
-       1.3, 1.8
-    ]
-  })
-},
-{
-  pairId: "minus-third",
-  equation: "\\( y' = y(1 - y) - \\frac{1}{3} \\)",
-  portrait: portraitCard({
-    f: (y) => y * (1 - y) - 1/3,
-    equilibria: [ ],
-ticks: [
-    { value: 0, label: "0" },
-    { value: 1, label: "1" }
-  ],
-    samples: [
-      -1.8, -1.3, -0.9, -0.5,
-       0.1, 0.3, 0.5, 0.7, 0.9,
-       1.3, 1.8
-    ]
-  })
-},
+  {
+    pairId: "y(2-y)",
+    equation: "\\( y'  = y(2 - y) \\)",
+    portrait: portraitCard({
+      f: (y) => y * (2 - y),
+      yMin: -2.2,
+      yMax: 2.4,
+      equilibria: [
+        { value: 2, label: "2" },
+        { value: 0, label: "0" }
+      ],
+      ticks: [
+        { value: 1, label: "1" }
+      ],
+      samples: [
+        -0.3, -0.7, -1.2, -1.8,
+        0.2, 0.6, 1.0, 1.4, 1.8,
+        2.3
+      ]
+    })
+  },
+  {
+    pairId: "minus-quarter",
+    equation: "\\( y'  = y(1 - y) - \\frac{1}{4} \\)",
+    portrait: portraitCard({
+      f: (y) => y * (1 - y) - 0.25,
+      equilibria: [
+        { value: 0.5, label: "½" }
+      ],
+      ticks: [
+        { value: 0, label: "0" },
+        { value: 1, label: "1" }
+      ],
+      samples: [
+        -1.8, -1.3, -0.9, -0.5,
+        0.1, 0.3, 0.7, 0.9,
+        1.3, 1.8
+      ]
+    })
+  },
+  {
+    pairId: "minus-third",
+    equation: "\\( y' = y(1 - y) - \\frac{1}{3} \\)",
+    portrait: portraitCard({
+      f: (y) => y * (1 - y) - 1 / 3,
+      equilibria: [],
+      ticks: [
+        { value: 0, label: "0" },
+        { value: 1, label: "1" }
+      ],
+      samples: [
+        -1.8, -1.3, -0.9, -0.5,
+        0.1, 0.3, 0.5, 0.7, 0.9,
+        1.3, 1.8
+      ]
+    })
+  },
   {
     pairId: "minus-y",
     equation: "\\(y'  = −y\\)",
@@ -342,12 +342,12 @@ ticks: [
       equilibria: [
         { value: 0, label: "0" }
       ],
-ticks: [
-    { value: 1, label: "1" }
-  ],
+      ticks: [
+        { value: 1, label: "1" }
+      ],
       samples: [
         -1.7, -1.25, -0.8, -0.35,
-         0.35, 0.8, 1.25, 1.7
+        0.35, 0.8, 1.25, 1.7
       ]
     })
   }
@@ -397,6 +397,7 @@ function buildDeck() {
 
 
 let deck = [];
+let restartTimout;
 let flippedIndices = [];
 let lockBoard = false;
 let matches = 0;
@@ -409,12 +410,26 @@ function updateStatus() {
       : `Matches: ${matches} / ${pairsThisRound.length}`;
 }
 
+function updateDeckStatus() {
+  if (!board) return;
+
+  deck.forEach((card, index) => {
+    const cardEl = board.children[index]
+    if (!cardEl) return
+
+    card.flipped ? cardEl.classList.add("is-flipped") : cardEl.classList.remove("is-flipped")
+    card.matched ? cardEl.classList.add("is-matched") : cardEl.classList.remove("is-matched")
+  });
+
+  updateStatus();
+}
+
 function renderBoard() {
   board.innerHTML = "";
 
   deck.forEach((card, index) => {
     const btn = document.createElement("button");
-    btn.className = "card";
+    btn.className = "card glow-border";
 
     if (card.flipped) btn.classList.add("is-flipped");
     if (card.matched) btn.classList.add("is-matched");
@@ -431,9 +446,9 @@ function renderBoard() {
   });
 
   updateStatus();
-if (window.MathJax) {
-  MathJax.typeset();
-}
+  if (window.MathJax) {
+    MathJax.typeset();
+  }
 }
 
 function handleClick(i) {
@@ -445,7 +460,7 @@ function handleClick(i) {
     deck[m2].flipped = false;
 
     pendingMismatch = null;
-    renderBoard();
+    updateDeckStatus();
   }
 
 
@@ -456,7 +471,7 @@ function handleClick(i) {
 
   card.flipped = true;
   flippedIndices.push(i);
-  renderBoard();
+  updateDeckStatus();
 
   if (flippedIndices.length < 2) return;
 
@@ -474,22 +489,37 @@ function handleClick(i) {
     matches++;
     flippedIndices = [];
     lockBoard = false;
-    renderBoard();
+    updateDeckStatus();
     return;
   }
 
-    pendingMismatch = [a, b];
+  pendingMismatch = [a, b];
   flippedIndices = [];
   lockBoard = false;
 }
 
 function resetGame() {
-  deck = buildDeck();
-  flippedIndices = [];
-  lockBoard = false;
-  matches = 0;
-  renderBoard();
+  const isAlreadyPlayed = deck?.length > 0;
+  if (isAlreadyPlayed) {
+    deck = deck.map((c) => ({ ...c, flipped: false, matched: false }));
+    updateDeckStatus();
+  }
+
+  clearTimeout(restartTimout);
+  restartTimout = setTimeout(() => {
+    deck = buildDeck();
+    flippedIndices = [];
+    lockBoard = false;
+    matches = 0;
+    renderBoard();
+  }, isAlreadyPlayed ? 500 : 0)
 }
 
+function revealGame() {
+  deck = deck.map((c) => ({ ...c, flipped: true }));
+  updateDeckStatus();
+}
+
+revealBtn.onclick = revealGame
 resetBtn.onclick = resetGame;
 resetGame();

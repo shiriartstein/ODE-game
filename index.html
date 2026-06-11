@@ -10,8 +10,8 @@
   <link rel="stylesheet" href="style.css">
 
 
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-J0QV8V677W"></script>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-J0QV8V677W"></script>
 
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -31,8 +31,7 @@
     };
   </script>
 
-  <script async
-    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
   </script>
 </head>
 
@@ -47,7 +46,10 @@
     </p>
 
     <div class="controls">
-      <button id="resetBtn">Shuffle / Restart</button>
+      <div class="ctrl-btns">
+        <button id="resetBtn">Shuffle / Restart</button>
+        <button id="revealBtn">Reveal?</button>
+        </div>
       <div id="status">Loading...</div>
     </div>
 
@@ -55,7 +57,8 @@
 
   </main>
 
-  <script src="game.js"></script>
+  <script defer src="game.js"></script>
 
 </body>
+
 </html>
